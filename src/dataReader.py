@@ -1,11 +1,5 @@
 #this is pranshu's branch
 # this reads the csv file, and outputs the important attributes needed to determine if the object is a exoplanet
-import pandas as pd
-import torch
-import math
-import torch.nn as nn
-import numpy as np
-import torch.nn.functional as F
 '''
 file = "C:/Users/prans/Desktop/Nasa-Exoplanet-ML-Model/test.csv"
 
@@ -34,18 +28,13 @@ for index, row in df.iterrows():
 '''
 #i am implementing Ky's check 1 under here
 
-# === Load CSV ===
-from pathlib import Path
-
 # Build a safe path to the CSV file using pathlib. This avoids Python interpreting backslashes as
 # escape sequences and makes the code portable across OSes. If you prefer an absolute path,
 # replace project_root / 'test.csv' with Path(r"C:\Users\prans\Desktop\Nasa-ExoPlanet-ML-Model\test.csv").
-project_root = Path(__file__).resolve().parents[1]
-csv_path = project_root / 'test.csv'
-
+'''
 if not csv_path.exists():
     # Try a fallback: user's workspace root where this script likely runs
-    csv_path = Path('test.csv')
+    csv_path = Path('cumulative_2025.10.04_07.30.24.csv')
 
 if not csv_path.exists():
     raise FileNotFoundError(f"CSV file not found at {csv_path}. Update the path to your dataset.")
@@ -77,20 +66,17 @@ def expected_duration_hours(P_days, R_star):
     return y
 
 label_map = {
-    "CP": 1,           # Confirmed Planet
-    "CONFIRMED": 1,
-    "PC": -1,          # Planet Candidate (optional, you could drop these instead)
-    "FP": 0,           # False Positive
-    "FALSE POSITIVE": 0
+    "CANDIDATE": 1,           # Confirmed Planet
+    "FALSE POSITIVE": 0       # False Positive
 }
 
 rows = []
 for _, r in df.iterrows():
-    depth = r.get("pl_trandep", np.nan)     # transit depth [ppm]
-    dur = r.get("pl_trandurh", np.nan)      # observed duration [h]
-    P = r.get("pl_orbper", np.nan)          # orbital period [days]
-    R = r.get("st_rad", np.nan)             # stellar radius [Rsun]
-    label_text = str(r.get("tfopwg_disp", "")).upper().strip()
+    depth = r.get("koi_depth", np.nan)     # transit depth [ppm]
+    dur = r.get("koi_duration", np.nan)      # observed duration [h]
+    P = r.get("koi_period", np.nan)          # orbital period [days]
+    R = r.get("koi_prad", np.nan)             # stellar radius [Rsun]
+    label_text = str(r.get("koi_disposition", "")).upper().strip()
     label = label_map.get(label_text, np.nan)  # translate into number
 
     rp_rsun = radius_from_depth_ppm(depth, R)
@@ -100,50 +86,68 @@ for _, r in df.iterrows():
     ratio = dur / exp_dur if (exp_dur and exp_dur > 0) else np.nan
 
     rows.append({
-        "pl_trandep": depth,
-        "pl_trandurh": dur,
-        "pl_orbper": P,
-        "st_rad": R,
-        "rp_rsun": rp_rsun,           # from check #1
-        "a_AU": a_AU,
-        "expected_dur": exp_dur,
-        "ratio": ratio,               # from check #2
-        "label": label                # 1=planet, 0=not, -1=candidate
+        "koi_depth": depth,
+        "koi_duration": dur,
+        "koi_period": P,
+        "koi_prad": R,
+        #"rp_rsun": rp_rsun,           # from check #1
+        #"a_AU": a_AU,
+        #"expected_dur": exp_dur,
+        #"ratio": ratio,               # from check #2
+        "koi_disposition": label                # 1=planet, 0=not, -1=candidate
     })
 
 feat_df = pd.DataFrame(rows)
 
 # === Inspect first few rows ===
-print(feat_df.head(10))
+print(feat_df)''''''
 
     #just testing 
 
-'''if period == 2.1713484:
+if period == 2.1713484:
         print("Value can be drawn.")
     else:
-        print("Ignore this.")'''
-'''
+        print("Ignore this.")
     #this is the model so far
 
-    class Model(nn.Module):
-    #input layer 11 inputs
-    def __init__(self, input_features=11, hlayer1= 8, hlayer2 = 9, output_features = 2):
-        super().__init__()
-        self.fc1 = nn.Linear(input_features, hlayer1)
-        self.fc2 = nn.Linear(hlayer1, hlayer2)
-        self.out = nn.Linear(hlayer2, output_features)
-    
-    def forward(self, x):
-        x = F.relu(self.fc1(x))
-        x = F.relu(self.fc2(x))
-        x = self.out(x)
-
-        return x
-
-#random seed for randominzation
-torch.manual_seed(41)
-
-mlModel = Model()
-
 '''
+
+#here is the modularized version of the dataFinder
+import pandas as pd
+import numpy as np
+from pathlib import Path
+
+LABEL_MAP = {
+    "CANDIDATE": 1,
+    "FALSE POSITIVE": 0
+}
+
+def load_exoplanet_data(csv_path: str | Path) -> pd.DataFrame:
+    """
+    filters Kepler exoplanet data to key columns for ML training.
+    Keeps: koi_depth, koi_duration, koi_period, koi_prad, koi_disposition.
+    """
+    csv_path = Path(csv_path)
+    if not csv_path.exists():
+        raise FileNotFoundError(f"CSV not found at {csv_path}")
+
+    #Reads CSV
+    df = pd.read_csv(csv_path, comment="#")
+
+    # Filter the important columns
+    keep_cols = ["koi_depth", "koi_duration", "koi_period", "koi_prad", "koi_disposition","koi_srad"]
+    df = df[keep_cols]
+
+    #map labels
+    df["koi_disposition"] = (
+        df["koi_disposition"]
+        .astype(str)
+        .str.upper()
+        .map(LABEL_MAP)
+    )
+
+    df = df.dropna(subset=["koi_depth", "koi_duration", "koi_period", "koi_prad", "koi_disposition","koi_srad"])
+
+    return df
+
 
