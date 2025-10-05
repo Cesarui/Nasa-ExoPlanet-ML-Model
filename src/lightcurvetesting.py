@@ -6,6 +6,9 @@ import torch
 from torch import nn
 from torch.utils.data import DataLoader
 
+#This is my attempt to implementing lightcurve data to train the ML algorithm but it took too much time to learn all of it
+
+
 def check_Dispostion(data):
   if(data == 'CONFIRMED'):
     return 0
