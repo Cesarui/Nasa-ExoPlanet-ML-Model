@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <Link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1 class="header-text">ExoPlanet Identifier</h1>
+    <div class="system-container">
+        <div class="star">
+            <div class="planet jupiter">
+            </div>
+        </div>
+    <form action="/" method="post" class="input-container">
+        <h3 style="color: white; text-align: center;">Enter Exoplanet Data</h3>
+        <input type="number" name="orbital-period" placeholder="Enter orbital period (days)" required>
+        <input type="number" name="transit-duration" placeholder="Enter transit duration (days)" required>
+        <input type="number" name="transit-depth" placeholder="Enter transit depth (ppm)" required>
+        <input type="number" name="planet-radius" placeholder="Enter planet radius (earth radii)" required>
+        <input type="number" name="stellar-radius" placeholder="Enter stellar radius (solar radii)" required>
+        <button type="submit" class="space-button">Enter</button>
+    </form>
+    <div class="text-container">
+        <h1 class="body-text">What is an exoplanet?</h1>
+            <h2 class="body-text" style="color: #fc4503">
+            An exoplanet is a planet beyond our solar system. These distant worlds come in many sizes and forms, such as gaseous giants like Jupiter or rocky pebbles like earth.
+            <br>
+            Sometimes, these planets orbit a star similar to how our solar system works.
+            </h2>
+        <h1 class="body-text">How do we identify these exoplanets?</h1>
+            <h2 class="body-text" style="color: #fc4503">
+            When exoplanets orbit a star, we can detect the slight change in brightness of that star because of the exoplanet blocking it from our satellites' views.
+            <br>
+            We can graph out how much the star's brightness is dimmed (transit depth), how long its dimmed for (transit duration), and how much time is in between each dim (orbital period).
+            <br>
+            The resulting graph is known as a light curve. If the orbital period is consistent, the transit depth and duration fits that of a planet, then it is likely an exoplanet!
+            <br>
+            This method of exoplanet detection is known as the Transit method.
+            </h2>
+    </div>
+    </div>
+</body>
+</html>
