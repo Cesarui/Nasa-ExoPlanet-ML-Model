@@ -27,7 +27,7 @@ def predict_exoplanet():
         # Ask for input
         koi_depth = float(input("Enter transit depth: "))
         koi_duration = float(input("Enter transit duration: "))
-        koi_period = float(input("Enter orbital eriod: "))
+        koi_period = float(input("Enter orbital period: "))
         koi_prad = float(input("Enter planetary radius: "))
         koi_srad = float(input("Enter stellar radius: "))
 
