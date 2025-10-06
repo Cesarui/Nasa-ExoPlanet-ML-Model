@@ -22,14 +22,14 @@ with open("scaler.pkl", "rb") as f:
     scaler = pickle.load(f)
 print(f"✅ Loaded scaler from {SCALER_PATH}")
 
-def predict_exoplanet():
+def predict_exoplanet(depth, duration, period, prad, srad):
     try:
         # Ask for input
-        koi_depth = float(input("Enter transit depth: "))
-        koi_duration = float(input("Enter transit duration: "))
-        koi_period = float(input("Enter orbital period: "))
-        koi_prad = float(input("Enter planetary radius: "))
-        koi_srad = float(input("Enter stellar radius: "))
+        koi_depth = float(depth)
+        koi_duration = float(duration)
+        koi_period = float(period)
+        koi_prad = float(prad)
+        koi_srad = float(srad)
 
         features = [[koi_depth, koi_duration, koi_period, koi_prad, koi_srad]]
         features_scaled = scaler.transform(features)
@@ -43,18 +43,18 @@ def predict_exoplanet():
 
         print(f"\n🔮 Prediction: {pred} (Probability: {prob:.4f})")
         if pred == 1:
-            print("➡️ Likely an exoplanet")
+            return True
         else:
-            print("➡️ Likely not an exoplanet")
+            return False
 
-    except ValueError:
+    except:
         print("⚠️ Invalid input! Please enter numeric values.")
 
 
 
-if __name__ == "__main__":
+'''if __name__ == "__main__":
     while True:
         predict_exoplanet()
         again = input("\nMake another prediction? (yes/no): ").lower().strip()
         if again != "yes":
-            break
+            break'''
