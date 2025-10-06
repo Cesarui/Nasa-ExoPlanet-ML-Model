@@ -12,7 +12,7 @@ A deep learning project that uses PyTorch and other libraries to predict whether
 
 ## 🌟 Overview
 
-This project implements a binary classification neural network to identify confirmed exoplanets from NASA's Kepler mission data. The model analyzes five key planetary features and predicts whether a candidate is a confirmed exoplanet with a confidence score.
+This project implements a binary classification neural network to identify confirmed exoplanets from NASA's Kepler mission data. The model analyzes five key planetary features and predicts whether a candidate is an exoplanet or not.
 
 **Key Highlights:**
 - 🎯 Binary classification (Confirmed vs. Not Confirmed)
