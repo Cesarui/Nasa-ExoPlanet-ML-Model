@@ -16,10 +16,8 @@ This project implements a binary classification neural network to identify confi
 
 **Key Highlights:**
 - 🎯 Binary classification (Confirmed vs. Not Confirmed)
-- 🧠 Multi-layer neural network with dropout regularization
 - 📊 Trained on real NASA Kepler mission data
-- 💻 Interactive command-line interface for custom predictions
-- 📈 Comprehensive performance metrics (accuracy, precision, recall, F1-score)
+- 💻 Webpage for custom predictions
 
 ## ✨ Features
 
