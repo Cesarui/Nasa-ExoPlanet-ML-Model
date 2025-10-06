@@ -56,7 +56,7 @@ Pranshu Shah - hoangky271106@gmail.com
 
 Ky Trieu - pranshushah2024@gmail.com
 
-Richard Juuko - email
+Richard Juuko - richardkayondo100@gmail.com
 
 Jonathan Joseph - jpjoseph8145@gmail.com
 
