@@ -149,5 +149,3 @@ def load_exoplanet_data(csv_path: str | Path) -> pd.DataFrame:
     df = df.dropna(subset=["koi_depth", "koi_duration", "koi_period", "koi_prad", "koi_disposition","koi_srad"])
 
     return df
-
-
