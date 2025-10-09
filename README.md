@@ -1,6 +1,6 @@
 # 🪐 Exoplanet Detection with Machine Learning
 
-A deep learning project that uses PyTorch and other libraries to predict whether Kepler Objects of Interest (KOIs) are confirmed exoplanets based on their observable characteristics.
+A deep learning project that uses PyTorch and other libraries to predict whether Kepler Objects of Interest (KOIs) are exoplanets based on their observable characteristics.
 
 ## 📋 Table of Contents
 - [Overview](#overview)
